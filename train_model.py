@@ -12,6 +12,7 @@ from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 
 nltk.download('punkt')
+nltk.download("punkt_tab")
 nltk.download('wordnet')
 
 # Load the intents JSON file
@@ -49,3 +50,4 @@ joblib.dump(vectorizer, 'vectorizer.pkl')
 joblib.dump(label_encoder, 'label_encoder.pkl')
 
 print("✅ Model trained and saved as chatbot_model.pkl, vectorizer.pkl, label_encoder.pkl")
+
