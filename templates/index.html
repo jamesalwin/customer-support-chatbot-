@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Customer Support Chatbot</title>
+  <link id="theme-style" rel="stylesheet" type="text/css" href="{{ url_for('static', filename='light.css') }}">
+</head>
+<body>
+
+  <div class="theme-toggle">
+    <label class="switch">
+      <input type="checkbox" id="themeSwitch">
+      <span class="slider round"></span>
+    </label>
+    <span id="theme-icon">🌞</span>
+  </div>
+
+  <div class="container">
+    <h2>AI Customer Support Chatbot</h2>
+    <div class="chatbox" id="chatbox"></div>
+    <div class="input-container">
+      <input type="text" id="user-input" placeholder="Ask me anything...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const themeSwitch = document.getElementById("themeSwitch");
+    const themeIcon = document.getElementById("theme-icon");
+    const themeLink = document.getElementById("theme-style");
+
+    themeSwitch.addEventListener("change", () => {
+      if (themeSwitch.checked) {
+        themeLink.href = "{{ url_for('static', filename='dark.css') }}";
+        themeIcon.textContent = "🌙";
+      } else {
+        themeLink.href = "{{ url_for('static', filename='light.css') }}";
+        themeIcon.textContent = "🌞";
+      }
+    });
+
+    function sendMessage() {
+      const userInput = document.getElementById("user-input");
+      const message = userInput.value.trim();
+      if (message === "") return;
+
+      addMessage("user", message);
+      userInput.value = "";
+
+      fetch("/get", {
+        method: "POST",
+        body: JSON.stringify({ msg: message }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(res => res.json())
+      .then(data => addMessage("bot", data.response))
+      .catch(err => addMessage("bot", "Sorry, something went wrong!"));
+    }
+
+    function addMessage(sender, text) {
+      const chatbox = document.getElementById("chatbox");
+      const messageDiv = document.createElement("div");
+      messageDiv.className = `message ${sender === "user" ? "right" : "left"}`;
+
+      const avatar = document.createElement("img");
+      avatar.className = "avatar";
+      avatar.src = sender === "user" ? "{{ url_for('static', filename='images/user.png') }}" : "{{ url_for('static', filename='images/bot.png') }}";
+
+      const textDiv = document.createElement("div");
+      textDiv.className = "text";
+      textDiv.innerText = text;
+
+      messageDiv.appendChild(avatar);
+      messageDiv.appendChild(textDiv);
+      chatbox.appendChild(messageDiv);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    document.getElementById("user-input").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") sendMessage();
+    });
+  </script>
+
+</body>
+</html>

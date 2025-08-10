@@ -1,0 +1,34 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["Hi", "Hey", "Hello", "Good morning", "Good evening"],
+      "responses": ["Hello! How can I assist you today?", "Hi there, how can I help you?"]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye", "Thanks, bye"],
+      "responses": ["Goodbye! Have a great day.", "See you soon!"]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "That's helpful", "Thanks a lot"],
+      "responses": ["You're welcome!", "Happy to help!", "Anytime!"]
+    },
+    {
+      "tag": "order_status",
+      "patterns": ["Where is my order?", "Track my order", "Order status", "Order tracking"],
+      "responses": ["Please provide your order ID so I can check the status."]
+    },
+    {
+      "tag": "refund_policy",
+      "patterns": ["What is your refund policy?", "Can I get a refund?", "Refund process"],
+      "responses": ["You can request a refund within 7 days of purchase. Please visit our refund page."]
+    },
+    {
+      "tag": "payment_issue",
+      "patterns": ["Payment failed", "I have a payment issue", "Card not working", "Can't pay"],
+      "responses": ["Please check your card details or try a different payment method."]
+    }
+  ]
+}
