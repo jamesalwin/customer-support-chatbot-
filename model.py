@@ -5,6 +5,7 @@ from nltk.stem import WordNetLemmatizer
 
 lemmatizer = WordNetLemmatizer()
 nltk.download("punkt")
+nltk.download("punkt_tab")
 nltk.download("wordnet")
 
 # Load models
@@ -35,4 +36,5 @@ def get_bot_response(user_input):
         return "I'm not sure how to help with that."
     except Exception as e:
         print("Error:", e)
+
         return "Sorry, something went wrong!"
