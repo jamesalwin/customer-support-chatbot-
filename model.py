@@ -38,3 +38,4 @@ def get_bot_response(user_input):
         print("Error:", e)
 
         return "Sorry, something went wrong!"
+
